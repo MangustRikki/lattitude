@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Калькулятор полок</title>
+        <meta charset="UTF-8">
+        <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+        <script type="text/javascript" src="js/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="js/jquery.ui.rotatable.min.js"></script>
+        <script type="text/javascript" src="js/jquery.ui.touch-punch.min.js"></script>
+        <script type="text/javascript" src="js/functions.js" ></script>
+        <script type="text/javascript" src="js/scripts.js" ></script>
+        <link rel="stylesheet" href="css/jquery-ui.min.css">
+        <link rel="stylesheet" href="css/jquery-ui.structure.min.css">
+        <link rel="stylesheet" href="css/jquery-ui.theme.min.css">
+        <link rel="stylesheet" href="css/clear.css">
+        <link rel="stylesheet" href="css/styles.css">
+        <meta http-equiv="Cache-Control" content="no-cache">
+    </head>
+    <body>
+        <div class="header"></div>
+        <div id="calculator">
+            <div class="panel">
+                <div class="top">
+                    <div class="button undo"></div>
+                    <div class="button redo"></div>
+                </div>
+                <div class="button elements"></div>
+                <div class="button colors"></div>
+                <div class="button bg"></div>
+                <div class="button delete"></div>
+                <div class="button copy"></div>
+                <div class="button save"></div>
+                <div class="button print"></div>
+                <div class="form elements">
+                    <div class="arrow"></div>
+                    <div class="close"></div>
+                    <div class="hidder">
+                        <div class="element etalon">
+                            <div class="colorisator">
+                                <div class="ring left"></div>
+                                <div class="corrector top"></div>
+                                <div class="middle" style=""></div>
+                                <div class="corrector bottom"></div>
+                                <div class="ring right"></div>
+                                <div class="cap left"></div>
+                                <div class="cap right"></div>
+                            </div>
+                            <div class="length"></div>
+                            <div class="rotator"><div class="degrees">0&deg;</div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form colors">
+                    <div class="arrow"></div>
+                    <div class="close"></div>
+                    <div class="color etalon"></div>
+                    <h2>Основные цвета</h2>
+                    <div class="list main"></div>
+                    <h2>Дополнительные цвета</h2>
+                    <div class="list additional"></div>
+                    <span>Только текстура дерева</span><div 
+                        class="color" 
+                        data-color="tree" 
+                        style="background-image: url('css/images/tree.png');"
+                        ></div><!--style="background-color: #f4b873""-->
+                </div>
+                <div class="form bg">
+                    <div class="arrow"></div>
+                    <div class="close"></div>
+                    <div class="color etalon"></div>
+                    <h2>Цвет сетки</h2>
+                    <div class="list main">
+                        <div class="color white"></div><div class="color gray"></div><div class="color black"></div>
+                    </div>
+                    <h2>Фон-картинка</h2>
+                    <div class="list pictures">
+                        <div class="color bg bg1"></div>
+                    </div>
+                    <h2>Цвет фона</h2>
+                    <div class="list palette">
+                        <div class="square">
+                            <div class="gradient main"></div>
+                            <div class="gradient toRight"></div>
+                            <div class="gradient toBottom"></div>
+                            <div class="pointerContainer"><div class="pointer"></div></div>
+                        </div>
+                        <div class="hueContainer">
+                            <div class="hue"></div>
+                            <div class="pointer"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="field">
+                <div class="web"><span class="number etalon"></span></div>
+                <div class="bg"></div>
+                <div class="button help"></div>
+                <div class="connector etalon"></div>
+                <div class="selectRectangle"></div>
+                <div class="priceorder">
+                    <div class="price">Цена: <span>0</span> RUB</div>
+                    <button class="order">Заказать</button>
+                </div>
+                <div class="copyTooltip">Кликните на поле для копирования выделенного блока</div>
+                <div class="debug_p etalon left"></div>
+                <div class="debug_p etalon right"></div>
+            </div>
+        </div>
+        <div class="dialogs">
+            <div class="bg"></div>
+            <div class="dialog delete">
+                <h2>Действительно удалить все элементы?</h2>
+                <div class="subhead"></div>
+                <div class="buttonset">
+                    <div class="button cancel">Отмена</div>
+                    <div class="button ok">Удалить</div>
+                </div>
+            </div>
+            <div class="dialog save">
+                <table>
+                    <tr class="etalon"><td class="num"><td class="name"><td class="price"></tr>
+                </table>
+                <h2>Сохранение</h2>
+                <div class="subhead">Ссылка на эту комбинацию:</div>
+                <div class="content">
+                    <div class="link"></div>
+                    Добавьте ссылку в избранное в браузере, либо скопируйте и отправьте.<br/>
+                    Так же, вы можете получить ее по емейлу:<br/>
+                    <input type="text" name="email" placeholder="домен@сервер.ру"/>
+                    <div class="error">Введите корректный емейл</div>
+                </div>
+                <div class="buttonset">
+                    <div class="button cancel">Закрыть</div>
+                    <div class="button ok">Отправить</div>
+                </div>
+            </div>
+            <div class="dialog order">
+                <h2>Заказ</h2>
+                <div class="hover">
+                    <table>
+                        <thead>
+                            <tr>
+                                <td class="wide">Наименование</td>
+                                <td class="wide">Цвет</td>
+                                <td>Цена</td>
+                                <td>Кол-во</td>
+                                <td>Стоимость</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="etalon">
+                                <td></td>
+                                <td class="colorTd"></td>
+                                <td class="addRubble"></td>
+                                <td></td>
+                                <td class="addRubble"></td>
+                            </tr>
+                            <tr class="total"><td colspan="3"><td>Итого:<td class="number addRubble"></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="buttonset">
+                    <div class="button cancel">Отмена</div>
+                    <div class="button ok">Далее</div>
+                </div>
+            </div>
+            <div class="dialog sendOrder">
+                <h2>Спасибо за заказ!</h2>
+                <div class="subhead">Оставьте свои контактные данные, чтобы мы могли связаться с вами в ближайшее время!</div>
+                <div class="inputRow">
+                    <div class="title">e-mail:</div><input name="email" type="text"/>
+                    <div class="title">тел.:</div><input name="phone" type="text"/>
+                </div>
+                <div class="titleComment">комментарии и пожелания:</div>
+                <textarea name="comment"></textarea>
+                <div class="errors">
+                    <div class="wrongEmail">Введите корректный емейл</div>
+                    <div class="wrongPhone">Введите корректный телефон</div>
+                </div>
+                <div class="buttonset">
+                    <div class="button cancel">Отмена</div>
+                    <div class="button ok">Оформить</div>
+                </div>
+            </div>
+            <div class="dialog thanks">
+                <h2>Спасибо за заказ!</h2>
+                <div class="subhead">Спасибо за заказ, операторы свяжутся с вами в ближайшее время</div>
+                <div class="buttonset">
+                    <div class="button ok">Закрыть</div>
+                </div>
+            </div>
+            <div class="dialog help">
+                <div class="close"></div>
+                <div class="pageView">
+                    <div class="page page_1 active">
+                        <p>
+                            <img src="css/images/ico/elements.png">
+                            <span class="text">
+                                <span class="name">Выбор сегмента</span>
+                                Выберите сегмент нужной длинны во всплывающем окне и перетащите его
+                                <br/> в рабочее поле.
+                            </span>
+                        </p>
+                        <p>
+                            <img src="css/images/ico/color.png">
+                            <span class="text">
+                                <span class="name">Цвет сегмента</span>
+                                Выберите цвет сегмента. При выборе цвета без выделений, цвет сохраняется для всех 
+                                дальнейших сегментов, перенесенных в поле.<br/>  
+                                Вы можете выделить N полок в рабочем поле и, открыв всплывающее окно, задать им
+                                новый цвет. <br/>
+                                При выборе “только текстура дерева” сегмент не будет окрашиваться. 
+                            </span>
+                        </p>
+                        <p>
+                            <img src="css/images/ico/bg.png">
+                            <span class="text">
+                                <span class="name">Настройки рабочего поля.</span>
+                                Выберите цвет фона, цвет сетки или фоновую картинку. 
+                            </span>
+                        </p>
+                        <p>
+                            <img src="css/images/ico/delete.png">
+                            <span class="text">
+                                <span class="name">Удалить</span>
+                                Выберите сегмент или несколько сегментов и удалите их. При нажатии на “удалить” без 
+                                каких-либо выделений, будет предложено удалить все сегменты с поля.
+                            </span>
+                        </p>
+                        <p>
+                            <img src="css/images/ico/copy.png">
+                            <span class="text">
+                                <span class="name">Копировать</span>
+                                Выберите сегмент или несколько сегментов и скопируйте их.
+                            </span>
+                        </p>
+                        <p>
+                            <img src="css/images/ico/save.png">
+                            <span class="text">
+                                <span class="name">Сохранить</span>
+                                Сохраните cцену и вернитесь к идее позже или отправьте на почту себе или друзьям.
+                            </span>
+                        </p>
+                        <p>
+                            <img src="css/images/ico/print.png">
+                            <span class="text">
+                                <span class="name">Распечатать</span>
+                                Распечатайте результат своей работы.
+                            </span>
+                        </p>
+                    </div>
+                    <div class="page page_2">
+                        <img src="css/images/help.png"/>
+                        <div>
+                            <p>
+                            У каждого сегмента 2 разных торца.<br/>
+                            В связи с этим вы должны замыкать<br/>
+                            сегменты разными сторонами.<br/>
+                            Чтобы не запутаться, вы можете<br/>
+                            использовать число, обозначающее длину<br/>
+                            полки. Оно указано на каждом сегменте.<br/>
+                            </p>
+                            <p>
+                            Вы НЕ можете замыкать сегменты <br/>
+                            под углом меньше , чем 90 градусов.<br/>
+                            Если вы хотите получить <br/>
+                            острый угол, то можете расположить новый <br/>
+                            сегмент рядом для образования угла <br/>
+                            меньше, чем 90 градусов.<br/>
+                            </p>
+                            <p>
+                            Вы также можете полностью соединить<br/>
+                            цепь из сегментов, получив замкнутый<br/>
+                            контур.<br/>
+                            </p>
+                            <p>
+                            Не забудьте удалить все сегменты, <br/>
+                            не относящиеся к вашей конечной задумке,<br/>
+                            или сегменты, затерявшиеся в поле,<br/>
+                            т.к. конечная стоимость учитывается со <br/>
+                            всеми сегментами, находящимися в поле. <br/>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="page page_3">
+                        <div class="subheader">Посмотрите наш обучающий ролик, который ответит на все вопросы.</div>
+                        <div class="youtube"><iframe 
+                                src="https://www.youtube.com/embed/3r6pBqmanH4?ecver=2" 
+                                frameborder="0" 
+                                allowfullscreen></iframe></div>
+                    </div>
+                </div>
+                <div class="paginator">
+                    <div class="arrow left disabled"></div>
+                    <div class="arrow right"></div>
+                    <div class="pages">
+                        <span class="page_1 disabled"></span>
+                        <span class="page_2"></span>
+                        <span class="page_3"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="debugInfo"><table></table></div>
+    </body>
+</html>

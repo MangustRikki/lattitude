@@ -1,0 +1,709 @@
+.header {
+    height: 80px;
+    background-color:black;
+}
+
+#calculator .etalon {display:none !important;}
+#calculator input {font-family: Roboto;}
+#calculator {
+    width: 100%;
+    overflow:scroll;
+    position: relative;
+}
+#calculator .button {
+    display:inline-block;
+    width:64px;
+    height:64px;
+    cursor: pointer;
+    background-position: top left;
+    background-repeat: no-repeat;
+}
+#calculator .button.disabled {
+    opacity: 0.25;
+    cursor: default;
+}
+
+.panel {
+    z-index:1000;
+    width: 64px;
+    position: fixed;
+    left: 10px;
+}
+.panel .button          {margin-bottom:7px;}
+.panel .button.print    {margin-bottom:0;}
+.panel .button.elements {background-image: url('images/ico/elements.png');}
+.panel .button.colors   {background-image: url('images/ico/color.png');}
+.panel .button.bg       {background-image: url('images/ico/bg.png');}
+.panel .button.delete   {background-image: url('images/ico/delete.png');}
+.panel .button.copy     {background-image: url('images/ico/copy.png');}
+.panel .button.save     {background-image: url('images/ico/save.png');}
+.panel .button.print    {background-image: url('images/ico/print.png');}
+.panel .button.undo     {background-image: url('images/ico/undo.png');}
+.panel .button.redo     {background-image: url('images/ico/redo.png');}
+.panel>.top {position: absolute;}
+.panel .form {
+    display: none;
+    position: absolute;
+    left: 101px;
+    background-color: #2d2d2d;
+    color: #fff;
+    padding: 16px 27px 30px;
+    border: 1px solid #2d2d2d;
+    border-radius: 10px;
+    width: 344px;
+    z-index: 1000;
+}
+.panel .form .close {
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    cursor: pointer;
+    background-image:url('images/closeForm.png');
+    top: 8px;
+    right: 8px;
+}
+.panel .form .arrow {
+    position: absolute;
+    width: 32px;
+    height: 71px;
+    background-image:url('images/arrow.png');
+    left:-32px;
+}
+.panel .form h2, .panel .form span  {
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+.panel .form h2 {text-align: center;}
+.panel .form.elements {top: -55px;}
+.panel .form .hidder {
+    width: 100%;
+    overflow: hidden;
+}
+.panel .form.elements .arrow {top: 50px;}
+.panel .form.colors {top: -82px;}
+.panel .form.colors .arrow {top: 153px;}
+.panel .color {
+    width:32px;
+    height:32px;
+    display:inline-block;
+    margin-right: 7px;
+    margin-bottom: 7px;
+    border-radius: 3px;
+    cursor:pointer;
+    vertical-align: middle;
+}
+.panel .color:nth-child(9n) {margin-right: 0;}
+.panel .color.selected {
+    -webkit-box-shadow: 0px 0px 8px 1px rgba(255,0,0,1);
+    -moz-box-shadow: 0px 0px 8px 1px rgba(255,0,0,1);
+    box-shadow: 0px 0px 8px 1px rgba(255,0,0,1);
+}
+.panel .form.colors span {
+    display:inline-block;
+    width: 312px;
+}
+.panel .form.colors .list {margin-bottom: 25px;}
+.panel .form.bg {top: -84px;}
+.panel .form.bg .arrow {top: 230px;}
+.panel .form.bg .white {background-color: white;}
+.panel .form.bg .gray  {background-color: #9c9c9c;}
+.panel .form.bg .black {background-color: black;}
+.panel .form.bg .bg1 {background-image: url('images/bg/bg1_button.png');}
+.panel .form.bg .palette {position: relative;}
+.panel .form.bg .palette .square{
+    width: 292px;
+    height: 292px;
+    position: relative;
+    border: 1px solid #2d2d2d;
+    border-radius: 14px;
+}
+.panel .form.bg .palette .square .gradient{
+    position: absolute;
+    top:    1px;
+    left:   1px;
+    bottom: 1px;
+    right:  1px;
+    border: 1px solid #2d2d2d;
+    border-radius: 14px;
+}
+.panel .form.bg .palette .square .gradient.main {
+    z-index: 0;
+}
+.panel .form.bg .palette .square .gradient.toRight {
+    z-index: 1;
+    background: linear-gradient(to right, #fff 0%, rgba(255,255,255,0) 100%);
+}
+.panel .form.bg .palette .square .gradient.toBottom {
+    z-index: 2;
+    background: linear-gradient(to bottom, transparent 0%, #000 100%);
+}
+.panel .form.bg .palette .square .pointerContainer {
+    position: absolute;
+    top: -12px;
+    left: -12px;
+    right:-14px;
+    bottom: -14px;
+}
+.panel .form.bg .palette .square .pointerContainer .pointer {
+    z-index: 3;
+    position: absolute;
+    border: 3px solid white;
+    background-color: rgba(255,255,255,0.5);
+    width: 34px;
+    height:34px;
+    border-radius: 17px;
+    cursor: pointer;
+}
+.panel .form.bg .palette .hueContainer {
+    position: absolute;
+    top: -15px;
+    bottom: -15px;
+    width: 15px;
+    position: absolute;
+    right: 0;
+}
+.panel .form.bg .palette .hueContainer .hue {
+    background: linear-gradient(to bottom, red,orange,yellow,green,blue,indigo,violet);
+    border: 1px solid #2d2d2d;
+    border-radius: 10px;
+    position: absolute;
+    top: 15px;
+    bottom: 15px;
+    width: 100%;
+}
+.panel .form.bg .palette .hueContainer .pointer {
+    position: absolute;
+    border: 3px solid white;
+    background-color: rgba(255,255,255,0.5);
+    width: 34px;
+    height:34px;
+    border-radius: 17px;
+    left: -12px;
+    top: 0px;
+    cursor: pointer;
+}
+.field {
+    position:relative;
+    width: 5120px;
+    height: 2880px;
+    overflow: hidden;
+}
+.field.scrolling, .field.scrolling .web, .field.scrolling .element {cursor: url('images/scrolling.png'), pointer;}
+.field .button.help {
+    background-image: url('images/ico/help.png');
+    position: fixed;
+    right:25px;
+    z-index: 1000;
+}
+.field .connector {
+    position: absolute;
+    width: 0px;
+    height: 0px;
+    border:2px solid black;
+    border-radius: 5px;
+    z-index:501;
+}
+.field .selectRectangle {
+    position:absolute;
+    top:0px;
+    left:0px;
+    width:0px;
+    height:0px;
+    display:none;
+    z-index:750;
+    border:1px solid pink;
+    background:rgb(255,232,232);
+    background:rgba(255,232,232,0.4);
+    -webkit-box-shadow: 0px 0px 5px 1px rgba(255,130,130,0.4);
+    -moz-box-shadow: 0px 0px 5px 1px rgba(255,130,130,0.4);
+    box-shadow: 0px 0px 5px 1px rgba(255,130,130,0.4);
+}
+.field .priceorder {
+    position:fixed;
+    z-index: 1000;
+    left:10px;
+    bottom:40px;
+    width: 480px;
+}
+.field .priceorder>*{
+    display: inline-block;
+    vertical-align: top;
+    font-size: 20px;
+    color: #fefefe;
+    border-radius: 6px;
+    padding:14px;
+    border: 1px solid transparent;
+}
+.field .priceorder .price {
+    background-color: #2d2d2d;
+    font-weight: 300;
+    width: 233px;
+}
+.field .priceorder .order {
+    background-color: #ecb451;
+    width: 200px;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.field .web {
+    width: 100%;
+    height: 100%;
+    background-position: 95px 23px;
+    background-repeat: repeat;
+    position:absolute;
+    top:0;left:0;
+    cursor:default;
+    z-index: 1;
+}
+
+.field .web.black {background-image: url('images/bg/web_black.png');}
+.field .web.gray  {background-image: url('images/bg/web_gray.png');}
+.field .web.white {background-image: url('images/bg/web_white.png');}
+.field .web .number {
+    display:block;
+    position: absolute;
+    background-color:rgba(255,255,255,1);
+    text-align: center;
+    vertical-align: middle;
+    padding: 7px;
+    font-size:12px;
+    font-weight: 300;
+}
+.field .web.black .number {color: black;}
+.field .web.gray  .number {color: #262626;}
+.field .web.white .number {color: white;}
+.field .web .number.big{
+    padding:14px;
+    font-size:20px
+}
+.field>.bg {
+    position: absolute;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    background-position: 113px 83px;
+}
+.field>.bg.bg1 {background-image: url('images/bg/bg1.png');}
+.element {
+    height:16px;
+    cursor: pointer;
+    background-color:white;
+    box-sizing: border-box;
+    border:2px solid black; 
+    border-radius:17px;
+    background-position: center;
+}
+.element .colorisator{border-color: transparent;}
+.element .length {
+    position: absolute;
+    color: white;
+    top: 1px;
+    left: 18px;
+    font-size: 9px;
+    text-shadow: 0px 0px 3px rgba(0, 0, 0, 1),
+                 0px 0px 3px rgba(0, 0, 0, 1),
+                 0px 0px 3px rgba(0, 0, 0, 1),
+                 0px 0px 3px rgba(0, 0, 0, 1),
+                 0px 0px 3px rgba(0, 0, 0, 1),
+                 0px 0px 3px rgba(0, 0, 0, 1), 
+                 0px 0px 3px rgba(0, 0, 0, 1), 
+                 0px 0px 3px rgba(0, 0, 0, 1), 
+                 0px 0px 3px rgba(0, 0, 0, 1),
+                 0px 0px 3px rgba(0, 0, 0, 1), 
+                 0px 0px 3px rgba(0, 0, 0, 1), 
+                 0px 0px 3px rgba(0, 0, 0, 1), 
+                 0px 0px 3px rgba(0, 0, 0, 1);
+    font-weight: bolder;
+}
+.element .ring {
+    position: absolute;
+    top: 1px;
+    background-color: white;
+    border: 2px solid transparent;
+    border-color: inherit;
+    border-radius: 5px;
+    width: 6px;
+    height: 6px;
+}
+.element .ring.left {left: 1px}
+.element .ring.right {right: 1px}
+.element .corrector {
+    position: absolute;
+    left: 7px;
+    right: 8px;
+    height: 0px;
+    border-top: 2px solid transparent;
+    border-color: inherit;
+}
+.element .corrector.top {top: 1px;}
+.element .corrector.bottom {bottom:1px;}
+.element .middle {
+    position: absolute;
+    top: 1px;
+    left: 9px;
+    right: 9px;
+    height: 0;
+    border: 5px solid transparent;
+    border-color: inherit;
+}
+.element.selected {
+    -webkit-box-shadow: 0px 0px 8px 0px rgba(255,0,0,1);
+    -moz-box-shadow: 0px 0px 8px 0px rgba(255,0,0,1);
+    box-shadow: 0px 0px 8px 0px rgba(255,0,0,1);
+    z-index:500;
+}
+.element .rotator {
+    position: absolute;
+    height: 80px;
+    width: 16px;
+    right: 4px;
+    top: -35px;
+    background-image: url('images/rotator.png');
+    background-repeat: no-repeat;
+    background-position: top left;
+    display: none
+}
+.element .rotator .degrees {
+    position:absolute;
+    top:34px;
+    left:24px;
+    font-size: 12px;
+}
+.element.selected.noRotation .rotator, .element.noRotation .rotator {display: none}
+.element.selected .rotator {display: block}
+.element .cap {
+    position: absolute;
+    top:4px;
+    width: 0px;
+    height: 0px;
+    border-radius: 5px;
+    border:2px solid transparent;
+    border-color: inherit;
+}
+.element .cap.left {left:4px;}
+.element .cap.right{right:4px;}
+.element.selected.ui-draggable-dragging {z-index: 9999;}
+.panel .element {
+    position: relative;
+    margin-bottom: 10px;
+    margin-left: 27px;
+}
+.panel .element:last-of-type {margin-bottom: 0;}
+.panel .element .cap, .panel .element .rotator {display:none;}
+.panel .element:before {
+    content: attr(data-name);
+    display:inline-block;
+    width:28px;
+    position:relative;
+    left: -35px;
+    top:-4px;
+    text-align: right;
+    font-size: 14px;
+}
+.field .element {z-index:2;}
+.dialogs {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 5000;
+    top: 0;
+    left: 0;
+    display:none;
+}
+.dialogs .bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 0.5;
+    display: none;
+}
+.dialogs .dialog {
+    position: absolute;
+    width: 880px;
+    background-color: #2d2d2d;
+    border: 1px solid #2d2d2d;
+    border-radius: 6px;
+    padding: 30px 19px 20px;
+    color: white;
+    font-size: 20px;
+    font-weight: 100;
+    display: none;
+}
+.dialogs .dialog h2 {
+    font-size: 100%;
+    font-weight: 300;
+    color: #ecb451;
+    margin-bottom: 11px;
+    padding-left:10px;
+}
+.dialogs .dialog .subhead {
+    border-bottom: 2px solid white;
+    padding-bottom: 10px;
+    margin-bottom: 24px;
+    padding-left: 10px;
+}
+.dialogs .dialog .content {padding: 0 10px;}
+.dialogs .dialog .button {
+    display: inline-block;
+    margin-right: 9px;
+    font-weight: 300;
+    padding: 8px 0;
+    width: 190px;
+    border: 1px solid transparent;
+    border-radius: 9px;
+    text-align: center;
+    background-color: #1f1f1f;
+    cursor: pointer;
+}
+.dialogs .dialog .buttonset {
+    text-align: right;
+    margin-right: 8px;
+}
+.dialogs .dialog .buttonset .button:last-of-type {margin-right: 0}
+.dialogs .dialog .button.ok {background-color: #ecb451;}
+.dialogs .dialog.save {}
+.dialogs .dialog.save .link {
+    display:block;
+    word-break: break-all;
+    text-align: justify;
+    font-size: 11px;
+    margin-bottom:10px;
+}
+.dialogs .dialog.save [name=email] {
+    width: 100%;
+    font-size: 100%;
+    text-align: center;
+    border: 1px solid #e0e0e0;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    font-family: Roboto;
+}
+.dialogs .dialog.save [name=email]::placeholder {
+    color:#ccc;
+    font-family: Roboto;
+}
+.dialogs .dialog.save .error {
+    position: absolute;
+    bottom: 31px;
+    left: 22px;
+    color:red;
+}
+.dialogs .dialog.order .etalon {display: none;}
+.dialogs .dialog.order table {
+    table-layout: fixed;
+    width:100%;
+}
+.dialogs .dialog.order .hover {
+    overflow: auto;
+    max-height: 500px;
+    margin-bottom: 20px;
+}
+.dialogs .dialog.order table td {
+    padding: 1px;
+    vertical-align: middle;
+    font-weight: 100;
+    padding: 5px;
+}
+.dialogs .dialog.order table td:first-child{padding-left:12px}
+.dialogs .dialog.order table td:last-child{padding-right:12px}
+.dialogs .dialog.order table thead tr td {border-bottom: 2px solid white;}
+.dialogs .dialog.order table .wide {width: 210px;}
+.dialogs .dialog.order table tbody tr:nth-child(odd) td{background-color: #1f1f1f;}
+.dialogs .dialog.order .colorTd {
+    position: relative;
+    padding-left:42px;
+    width: 176px;
+}
+.dialogs .dialog.order .colorTd.noPadding {padding-left:0;}
+/*.dialogs .dialog.order .addRubble:after {content: " ₽";}*/
+.dialogs .dialog.order .color {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    vertical-align: top;
+    position: absolute;
+    left:0;
+    top:1px;
+}
+.dialogs .dialog.sendOrder {}
+.dialogs .dialog.sendOrder .inputRow {
+    background-color:#1f1f1f;
+    margin-bottom: 35px;
+}
+.dialogs .dialog.sendOrder .inputRow .title {
+    vertical-align: top;
+    display: inline-block;
+    padding: 4px 12px;
+}
+.dialogs .dialog.sendOrder .inputRow input {
+    width: 283px;
+    border-radius: 6px;
+    border: 0;
+    padding: 6px;
+    margin-right: 80px;
+    font-family: Roboto;
+    font-size: 16px;
+}
+.dialogs .dialog.sendOrder .inputRow input:last-of-type {margin-right: 0;}
+.dialogs .dialog.sendOrder .titleComment {
+    padding: 0px 12px;
+    margin-bottom: 5px;
+}
+.dialogs .dialog.sendOrder textarea {
+    border-radius: 6px;
+    padding: 5px 12px;
+    width: 100%;
+    height: 95px;
+    box-sizing: border-box;
+    margin-bottom: 35px;
+    resize: none;
+}
+.dialogs .dialog.sendOrder .errors {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    left: 20px;
+    bottom: 30px;
+    color: red;
+    font-weight: 300;
+}
+.dialogs .dialog.sendOrder .errors div {display: none}
+
+.dialogs .dialog.help {
+    height: 690px;
+    width: 950px;
+    padding: 32px 17px;
+    background-color: #292929;
+    font-size: 20px;
+    letter-spacing: 0.3px;
+    font-weight: 300;
+}
+.dialogs .dialog.help .close {
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    cursor: pointer;
+    background-image:url('images/closeForm.png');
+    top: 8px;
+    right: 8px;
+}
+.dialogs .dialog.help .pageView {
+    position: relative;
+    height: 600px;
+    margin-bottom:35px;
+}
+.dialogs .dialog.help .pageView .page {display: none;}
+.dialogs .dialog.help .pageView .page.active {display: block;}
+.dialogs .dialog.help .paginator {
+    text-align: center;
+}
+.dialogs .dialog.help .paginator .arrow {
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+}
+.dialogs .dialog.help .paginator .arrow.left {margin-right: 10px;}
+.dialogs .dialog.help .paginator .arrow.left {background-image: url('images/paginator/left.png');}
+.dialogs .dialog.help .paginator .arrow.right {background-image: url('images/paginator/right.png');}
+.dialogs .dialog.help .paginator .arrow.left.disabled {background-image: url('images/paginator/left_disabled.png');}
+.dialogs .dialog.help .paginator .arrow.right.disabled {background-image: url('images/paginator/right_disabled.png');}
+.dialogs .dialog.help .paginator .pages {margin-top:1px;}
+.dialogs .dialog.help .paginator .pages span {
+    display: inline-block;
+    width:2px;
+    height:2px;
+    border:4px solid #6a6a6a;
+    background-color: #6a6a6a;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right:5px;
+}
+.dialogs .dialog.help .paginator .pages span:last-of-type {margin-right:0;}
+.dialogs .dialog.help .paginator .pages span.disabled {
+    border-color: #ebebeb;
+    background-color: #ebebeb;
+}
+.dialogs .dialog.help .page_1 p {
+    position: relative;
+    left: 0px;
+    margin-bottom: 20px;
+}
+.dialogs .dialog.help .page_1 p:last-of-type {margin-bottom: 0}
+.dialogs .dialog.help .page_1 p .text {
+    display: inline-block;
+    width: 850px;
+    vertical-align: top;
+    padding-left:88px;
+}
+.dialogs .dialog.help .page_1 p img {
+    clip: rect(10px, 60px, 60px, 10px);
+    position: absolute;
+    top: -10px;
+    left: 0px;
+}
+.dialogs .dialog.help .page_1 p .text .name {
+    display: block;
+    color: #ecb451;
+}
+.dialogs .dialog.help .pageView .page_2 {
+    padding-top:20px;
+    padding-left:20px;
+}
+.dialogs .dialog.help .page_2 img {
+    vertical-align: top;
+}
+.dialogs .dialog.help .page_2 div {
+    display: inline-block;
+    width: 435px;
+    vertical-align: top;
+    padding-top: 10px;
+    padding-left:20px;
+}
+.dialogs .dialog.help .page_2 div p {margin-bottom: 28px;}
+.dialogs .dialog.help .page_2 div p:last-of-type {margin-bottom: 0px;}
+.dialogs .dialog.help .page_3 .subheader {
+    text-align: center;
+    padding-top: 25px;
+    padding-bottom: 45px;
+    color: #ecb451;
+}
+.dialogs .dialog.help .page_3 .youtube {
+    position: relative;
+    left: 50px;
+}
+.dialogs .dialog.help .page_3 .youtube iframe {
+    position:absolute;
+    width:100%;
+    height:480px;
+    width: 850px;
+    left:0;
+}
+
+.copyTooltip {
+    position: fixed;
+    top:10px;
+    width:400px;
+    margin-left: -200px;
+    left: 50%;
+    background-color: #ecb451;
+    border: 1px solid #ecb451;
+    border-radius: 10px;
+    padding:5px 10px;
+    padding-top:10px;
+    text-align:center;
+    font-size:120%;
+    color: white;
+    z-index: 5000;
+    display: none;
+}
+
+#groupselect {position:absolute;}
